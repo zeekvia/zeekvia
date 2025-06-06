@@ -53,6 +53,36 @@
     .hidden {
       display: none;
     }
+
+    .training-section {
+      text-align: center;
+      margin: 3rem auto 1rem;
+    }
+
+    .training-section p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #00ffe1;
+      margin-bottom: 0.7rem;
+    }
+
+    .training-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: #00ffe1;
+      color: #000;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 12px #00ffe1cc;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .training-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00ffe1;
+    }
   </style>
 </head>
 <body>
@@ -80,23 +110,34 @@
       </div>
     </section>
 
-    <section class="container animate-slide-up" style="max-width: 600px; margin: 3rem auto;">
+    <!-- Training Section -->
+    <div class="training-section">
+      <p>For training and workshop click below</p>
+      <a
+        href="https://forms.gle/WYprSi2zrA2h785T7"
+        target="_blank"
+        class="training-button"
+      >
+        For Training
+      </a>
+    </div>
+
+    <!-- Contact Form -->
+    <section class="container animate-slide-up" style="max-width: 600px; margin: 2rem auto;">
       <form
         name="contact"
         method="POST"
         data-netlify="true"
         netlify-honeypot="bot-field"
-        action="thankyou.html"
+        action="thank-you.html"
         class="contact-form"
         aria-label="Contact form"
       >
-        <!-- Netlify hidden inputs -->
         <input type="hidden" name="form-name" value="contact" />
         <p class="hidden">
           <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
         </p>
 
-        <!-- Input fields -->
         <input type="text" name="name" placeholder="Your Name" required autocomplete="name" />
         <input type="email" name="email" placeholder="Your Email" required autocomplete="email" />
         <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
@@ -106,7 +147,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2025 Zeekvia</p>
+    <p>&copy; 2025 Zeekvia. Built with 💻 | Hosted on Netlify</p>
   </footer>
 
   <div class="cursor-dot"></div>

@@ -6,17 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Contact | Zeekvia</title>
 
-  <!-- Main site styles -->
   <link rel="stylesheet" href="./style.css" />
 
-  <!-- Minimal additive cursor styles -->
   <style>
     body {
       cursor: none;
     }
 
-    .cursor-dot,
-    .cursor-outline {
+    .cursor-dot, .cursor-outline {
       position: fixed;
       pointer-events: none;
       z-index: 10000;
@@ -52,6 +49,10 @@
       border-color: #ff00d4;
       box-shadow: 0 0 20px #ff00d4;
     }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -72,7 +73,6 @@
 
   <!-- MAIN CONTENT -->
   <main>
-    <!-- Hero -->
     <section class="hero animate-fade-in">
       <div class="container hero-content">
         <h1>Contact Zeekvia</h1>
@@ -80,104 +80,78 @@
       </div>
     </section>
 
-    <!-- Contact Form -->
     <section class="container animate-slide-up" style="max-width: 600px; margin: 3rem auto;">
       <form
         name="contact"
         method="POST"
         data-netlify="true"
-        netlify
+        netlify-honeypot="bot-field"
+        action="thankyou.html"
         class="contact-form"
         aria-label="Contact form"
       >
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          required
-          autocomplete="name"
-          aria-required="true"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          required
-          autocomplete="email"
-          aria-required="true"
-        />
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          rows="6"
-          required
-          aria-required="true"
-        ></textarea>
+        <!-- Netlify hidden inputs -->
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden">
+          <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+        </p>
+
+        <!-- Input fields -->
+        <input type="text" name="name" placeholder="Your Name" required autocomplete="name" />
+        <input type="email" name="email" placeholder="Your Email" required autocomplete="email" />
+        <textarea name="message" placeholder="Your Message" rows="6" required></textarea>
         <button type="submit" class="btn">Send Message</button>
       </form>
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 Zeekvia. Built with 💻 | Hosted on GitHub Pages</p>
+    <p>&copy; 2025 Zeekvia. Built with 💻 | Hosted on Netlify</p>
   </footer>
 
-  <!-- Custom cursor elements -->
   <div class="cursor-dot"></div>
   <div class="cursor-outline"></div>
 
-  <!-- Custom cursor script -->
+  <!-- Cursor Script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const dot = document.querySelector('.cursor-dot');
       const outline = document.querySelector('.cursor-outline');
-
-      let targetX = window.innerWidth / 2;
-      let targetY = window.innerHeight / 2;
-      let currentX = targetX;
-      let currentY = targetY;
+      let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
       const delay = 8;
-
-      // Show cursor when mouse enters window
-      function showCursor() {
-        document.body.classList.add('active-cursor');
-      }
-      // Hide cursor when mouse leaves window
-      function hideCursor() {
-        document.body.classList.remove('active-cursor');
-      }
-
-      document.addEventListener('mousemove', e => {
-        targetX = e.clientX;
-        targetY = e.clientY;
-        dot.style.left = `${targetX}px`;
-        dot.style.top = `${targetY}px`;
-        showCursor();
-      });
-
-      window.addEventListener('mouseout', hideCursor);
-      window.addEventListener('mouseleave', hideCursor);
-      window.addEventListener('mouseenter', showCursor);
+      let hasMoved = false;
 
       function animate() {
-        currentX += (targetX - currentX) / delay;
-        currentY += (targetY - currentY) / delay;
-        outline.style.left = `${currentX}px`;
-        outline.style.top = `${currentY}px`;
+        if (hasMoved) {
+          currentX += (targetX - currentX) / delay;
+          currentY += (targetY - currentY) / delay;
+          outline.style.left = currentX + 'px';
+          outline.style.top = currentY + 'px';
+        }
         requestAnimationFrame(animate);
       }
       animate();
 
-      // Hover effect for links, buttons, and features
-      const hoverTargets = document.querySelectorAll('a, button, .feature');
+      document.addEventListener('mousemove', e => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        dot.style.left = targetX + 'px';
+        dot.style.top = targetY + 'px';
+        if (!hasMoved) {
+          hasMoved = true;
+          document.body.classList.add('active-cursor');
+        }
+      });
+
+      window.addEventListener('mouseleave', () => document.body.classList.remove('active-cursor'));
+      window.addEventListener('mouseenter', () => {
+        if (hasMoved) document.body.classList.add('active-cursor');
+      });
+
+      const hoverTargets = document.querySelectorAll('a, button, .btn, .feature');
       hoverTargets.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          document.body.classList.add('cursor-hover');
-        });
-        el.addEventListener('mouseleave', () => {
-          document.body.classList.remove('cursor-hover');
-        });
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
       });
     });
   </script>

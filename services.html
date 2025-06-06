@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Services | Zeekvia</title>
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    body {
+      cursor: none;
+    }
+    .cursor-dot,
+    .cursor-outline {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.1s ease;
+    }
+    .cursor-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #00ffe1;
+      box-shadow: 0 0 8px #00ffe1cc;
+    }
+    .cursor-outline {
+      width: 35px;
+      height: 35px;
+      border: 2px solid #00ffe1;
+      opacity: 0.6;
+      box-shadow: 0 0 15px #00ffe1aa;
+      transition: transform 0.2s ease-out, opacity 0.3s ease;
+    }
+    body.active-cursor .cursor-dot,
+    body.active-cursor .cursor-outline {
+      opacity: 1;
+    }
+    body.cursor-hover .cursor-outline {
+      transform: scale(1.8);
+      border-color: #ff00d4;
+      box-shadow: 0 0 20px #ff00d4;
+    }
+    a, .btn-signup {
+      cursor: pointer;
+    }
+  </style>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dot = document.querySelector('.cursor-dot');
+      const outline = document.querySelector('.cursor-outline');
+
+      let targetX = window.innerWidth / 2;
+      let targetY = window.innerHeight / 2;
+      let currentX = targetX;
+      let currentY = targetY;
+      const delay = 8;
+
+      function showCursor() {
+        document.body.classList.add('active-cursor');
+      }
+      function hideCursor() {
+        document.body.classList.remove('active-cursor');
+      }
+
+      document.addEventListener('mousemove', e => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        dot.style.left = `${targetX}px`;
+        dot.style.top = `${targetY}px`;
+        showCursor();
+      });
+
+      window.addEventListener('mouseout', hideCursor);
+      window.addEventListener('mouseleave', hideCursor);
+      window.addEventListener('mouseenter', showCursor);
+
+      function animate() {
+        currentX += (targetX - currentX) / delay;
+        currentY += (targetY - currentY) / delay;
+        outline.style.left = `${currentX}px`;
+        outline.style.top = `${currentY}px`;
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      const hoverTargets = document.querySelectorAll('a, .btn-signup');
+      hoverTargets.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          document.body.classList.add('cursor-hover');
+        });
+        el.addEventListener('mouseleave', () => {
+          document.body.classList.remove('cursor-hover');
+        });
+      });
+    });
+  </script>
+</head>
+<body class="active-cursor">
+  <!-- NAVBAR -->
+  <header class="navbar animate-fade-down">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">Zeekvia</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html" class="active">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero animate-fade-in" style="padding: 5rem 0;">
+      <div class="container hero-content">
+        <h1 class="stylish-text">Our Cybersecurity Services</h1>
+        <p>Robust, scalable, and tailored solutions to secure your enterprise.</p>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="features container animate-slide-up" aria-label="List of cybersecurity services">
+
+      <div class="feature">
+        <h3>Threat Monitoring</h3>
+        <p>
+         Continuous threat detection with real-time alerts and AI-powered prevention.
+        </p>
+        <a href="contact.html" class="btn-signup">Sign Up</a>
+      </div>
+
+      <div class="feature">
+        <h3>Risk Assessment</h3>
+        <p>Thorough audits and vulnerability scans to identify your security gaps.</p>
+        <a href="contact.html" class="btn-signup">Sign Up</a>
+      </div>
+
+      <div class="feature">
+        <h3>Training & Workshops</h3>
+        <p>Educating staff with simulations and awareness to reduce human risk factors.</p>
+        <a href="contact.html" class="btn-signup">Sign Up</a>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Zeekvia. Built with 💻 | Hosted on GitHub Pages</p>
+  </footer>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+</body>
+</html>

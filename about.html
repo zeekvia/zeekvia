@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>About | Zeekvia</title>
+
+  <!-- Main site styles -->
+  <link rel="stylesheet" href="./style.css" />
+
+  <!-- Minimal additive cursor styles -->
+  <style>
+    body {
+      cursor: none;
+    }
+
+    .cursor-dot,
+    .cursor-outline {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.1s ease;
+    }
+
+    .cursor-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #00ffe1;
+      box-shadow: 0 0 8px #00ffe1cc;
+    }
+
+    .cursor-outline {
+      width: 35px;
+      height: 35px;
+      border: 2px solid #00ffe1;
+      opacity: 0.6;
+      box-shadow: 0 0 15px #00ffe1aa;
+      transition: transform 0.2s ease-out, opacity 0.3s ease;
+    }
+
+    body.active-cursor .cursor-dot,
+    body.active-cursor .cursor-outline {
+      opacity: 1;
+    }
+
+    body.cursor-hover .cursor-outline {
+      transform: scale(1.8);
+      border-color: #ff00d4;
+      box-shadow: 0 0 20px #ff00d4;
+    }
+
+    /* Make the "Why Choose Us" feature clickable */
+    .feature.clickable {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar animate-fade-down">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">Zeekvia</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- Hero -->
+    <section class="hero animate-fade-in">
+      <div class="container hero-content">
+        <h1>About Zeekvia</h1>
+        <p>We are a dedicated cybersecurity consultancy helping organizations safeguard their digital assets.</p>
+
+        <p>Zeekvia delivers affordable, scalable cybersecurity solutions for startups and small businesses, combining advanced technology and expert insight to protect and empower your growth.</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features container animate-slide-up">
+      <div class="feature">
+        <h3>Our Story</h3>
+        <p>Founded by security enthusiasts, Zeekvia strives to empower businesses against evolving cyber threats.</p>
+      </div>
+      <div class="feature">
+        <h3>Our Values</h3>
+        <p>We operate on trust, integrity, and a passion for securing tomorrow’s digital world.</p>
+      </div>
+      <!-- Make this whole box clickable -->
+      <div class="feature clickable" tabindex="0" role="link" aria-label="Why Choose Us - Navigate to homepage">
+        <h3>Why Choose Us</h3>
+        <p>Proven results, expert consultants, and a human-centric approach to security.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Zeekvia. Built with 💻 | Hosted on GitHub Pages</p>
+  </footer>
+
+  <!-- Custom cursor elements -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- Custom cursor script + clickable div redirect -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dot = document.querySelector('.cursor-dot');
+      const outline = document.querySelector('.cursor-outline');
+
+      let targetX = window.innerWidth / 2;
+      let targetY = window.innerHeight / 2;
+      let currentX = targetX;
+      let currentY = targetY;
+      const delay = 8;
+
+      function showCursor() {
+        document.body.classList.add('active-cursor');
+      }
+      function hideCursor() {
+        document.body.classList.remove('active-cursor');
+      }
+
+      document.addEventListener('mousemove', e => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        dot.style.left = `${targetX}px`;
+        dot.style.top = `${targetY}px`;
+        showCursor();
+      });
+
+      window.addEventListener('mouseout', hideCursor);
+      window.addEventListener('mouseleave', hideCursor);
+      window.addEventListener('mouseenter', showCursor);
+
+      function animate() {
+        currentX += (targetX - currentX) / delay;
+        currentY += (targetY - currentY) / delay;
+        outline.style.left = `${currentX}px`;
+        outline.style.top = `${currentY}px`;
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      const hoverTargets = document.querySelectorAll('a, button, .feature');
+      hoverTargets.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          document.body.classList.add('cursor-hover');
+        });
+        el.addEventListener('mouseleave', () => {
+          document.body.classList.remove('cursor-hover');
+        });
+      });
+
+      const whyChooseUsBox = document.querySelector('.feature.clickable');
+      whyChooseUsBox.addEventListener('click', () => {
+        window.location.href = 'index.html#why-choose-us';
+      });
+      whyChooseUsBox.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          window.location.href = 'index.html#why-choose-us';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

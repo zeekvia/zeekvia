@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Zeekvia | Cybersecurity Consultancy</title>
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    body {
+      cursor: none;
+    }
+    .cursor-dot,
+    .cursor-outline {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.1s ease;
+    }
+    .cursor-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #00ffe1;
+      box-shadow: 0 0 8px #00ffe1cc;
+    }
+    .cursor-outline {
+      width: 35px;
+      height: 35px;
+      border: 2px solid #00ffe1;
+      opacity: 0.6;
+      box-shadow: 0 0 15px #00ffe1aa;
+      transition: transform 0.2s ease-out, opacity 0.3s ease;
+    }
+    body.active-cursor .cursor-dot,
+    body.active-cursor .cursor-outline {
+      opacity: 1;
+    }
+    body.cursor-hover .cursor-outline {
+      transform: scale(1.8);
+      border-color: #ff00d4;
+      box-shadow: 0 0 20px #ff00d4;
+    }
+    /* Make feature articles show pointer cursor */
+    .feature {
+      cursor: pointer;
+    }
+  </style>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', () => {
+      const features = document.querySelectorAll('.feature');
+      features.forEach(feature => {
+        feature.addEventListener('click', () => {
+          window.location.href = 'services.html';
+        });
+      });
+
+      const dot = document.querySelector('.cursor-dot');
+      const outline = document.querySelector('.cursor-outline');
+
+      let targetX = window.innerWidth / 2;
+      let targetY = window.innerHeight / 2;
+      let currentX = targetX;
+      let currentY = targetY;
+      const delay = 8;
+
+      function showCursor() {
+        document.body.classList.add('active-cursor');
+      }
+      function hideCursor() {
+        document.body.classList.remove('active-cursor');
+      }
+
+      document.addEventListener('mousemove', e => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        dot.style.left = `${targetX}px`;
+        dot.style.top = `${targetY}px`;
+        showCursor();
+      });
+
+      window.addEventListener('mouseout', hideCursor);
+      window.addEventListener('mouseleave', hideCursor);
+      window.addEventListener('mouseenter', showCursor);
+
+      function animate() {
+        currentX += (targetX - currentX) / delay;
+        currentY += (targetY - currentY) / delay;
+        outline.style.left = `${currentX}px`;
+        outline.style.top = `${currentY}px`;
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      const hoverTargets = document.querySelectorAll('a, button, .feature');
+      hoverTargets.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          document.body.classList.add('cursor-hover');
+        });
+        el.addEventListener('mouseleave', () => {
+          document.body.classList.remove('cursor-hover');
+        });
+      });
+    });
+  </script>
+</head>
+<body class="active-cursor">
+  <header class="navbar animate-fade-down" role="banner">
+    <div class="container nav-container">
+      <a href="index.html" class="logo" aria-label="Zeekvia Home">Zeekvia</a>
+      <nav role="navigation" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" tabindex="0">Home</a></li>
+          <li><a href="about.html" tabindex="0">About</a></li>
+          <li><a href="services.html" tabindex="0">Services</a></li>
+          <li><a href="contact.html" tabindex="0">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero animate-fade-in" role="region" aria-label="Hero Section">
+      <div class="container hero-content">
+        <h1 class="stylish-text" tabindex="0">Guarding Your Digital Future</h1>
+        <p tabindex="0">We specialize in delivering top-notch cybersecurity services that protect your assets, people, and platforms.</p>
+        <a href="about.html" class="btn" role="button" tabindex="0">About Us</a>
+      </div>
+    </section>
+
+    <section class="features container animate-slide-up" role="region" aria-label="Core Services">
+      <article class="feature" tabindex="0" aria-label="Threat Monitoring Service">
+        <h3>Threat Monitoring</h3>
+        <p>Zeekvia provides affordable, scalable threat monitoring for startups and small businesses. Using real-time analytics and automation, they quickly detect and respond to cyber threats—offering enterprise-level protection without the high costs.</p>
+      </article>
+
+      <article class="feature" tabindex="0" aria-label="Risk Assessment Service">
+        <h3>Risk Assessment</h3>
+        <p>Zeekvia delivers cost-effective risk assessments for startups and small businesses. By identifying vulnerabilities early, they help prioritize security efforts efficiently. Their expert, scalable approach provides clear, actionable insights—ensuring informed decisions and strong protection without overspending.</p>
+      </article>
+
+      <article class="feature" tabindex="0" aria-label="Training and Workshops">
+        <h3>Training & Workshops</h3>
+        <p>Zeekvia offers affordable, tailored cybersecurity training for startups and small businesses. Their practical workshops empower your team to detect and respond to threats effectively, strengthening security without heavy costs.</p>
+      </article>
+    </section>
+
+    <section id="why-choose-us" class="why-choose-us container animate-slide-up" role="region" aria-label="Why Choose Zeekvia">
+      <h2 class="stylish-text" tabindex="0">Why Choose Zeekvia?</h2>
+      <p tabindex="0">At Zeekvia, we blend cutting-edge technology with strategic expertise to deliver proactive defense and enhance your overall security posture. Our fully managed approach ensures potential threats are identified and neutralized before they can impact your operations.</p>
+      <p tabindex="0"><strong>Proactive, Fully Managed Protection</strong><br />
+        With always-on protection, Zeekvia ensures that threats are handled before they become problems. Our AI-driven systems monitor activity 24/7, enabling your team to focus on innovation while we manage your digital safety silently in the background. Zeekvia stands out by blending deep cybersecurity expertise with innovative technology to deliver proactive, tailored protection. Our dedicated team ensures continuous threat monitoring, risk assessment, and hands-on support, empowering your business to stay secure, compliant, and confident in a rapidly evolving digital landscape. Choose Zeekvia for trusted, scalable security.
+      </p>
+    </section>
+  </main>
+
+  <footer role="contentinfo" aria-label="Site Footer">
+    <p>&copy; 2025 Zeekvia. Built with 💻 | Hosted on GitHub Pages</p>
+  </footer>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+</body>
+</html>

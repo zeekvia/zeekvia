@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Cyber Risk Assessments",
+    "description": "Identify vulnerabilities and understand potential threats before they impact your business."
+  },
+  {
+    "title": "Threat Intelligence",
+    "description": "Get actionable insights from real-time data to proactively defend against emerging cyber threats."
+  },
+  {
+    "title": "Penetration Testing",
+    "description": "Simulated attacks to evaluate your security posture and find weaknesses before attackers do."
+  },
+  {
+    "title": "Security Architecture Design",
+    "description": "Build a robust and scalable security framework tailored to your unique business needs."
+  },
+  {
+    "title": "Managed Security Services",
+    "description": "Continuous monitoring, threat detection, and rapid incident response by our expert team."
+  },
+  {
+    "title": "Compliance & Regulatory Advisory",
+    "description": "Ensure your operations meet industry standards and avoid costly compliance failures."
+  }
+]
